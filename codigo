@@ -1,0 +1,37 @@
+class Banco:
+    def __init__(self):
+        self.saldo = 0
+        self.depositos = []
+        self.saques = []
+
+    def deposito(self, valor):
+        if valor > 0:
+            self.saldo += valor
+            self.depositos.append(valor)
+
+    def saque(self, valor):
+        if valor > 0 and valor <= 500 and len(self.saques) < 3 and self.saldo >= valor:
+            self.saldo -= valor
+            self.saques.append(valor)
+        else:
+            print("Não é possível realizar o saque.")
+
+    def extrato(self):
+        print("Extrato:")
+        for deposito in self.depositos:
+            print(f"Depósito: R$ {deposito:.2f}")
+        for saque in self.saques:
+            print(f"Saque: R$ {saque:.2f}")
+        print(f"Saldo Atual: R$ {self.saldo:.2f}")
+        if not self.depositos and not self.saques:
+            print("Não foram realizadas movimentações.")
+
+# Cria uma instância do banco
+banco = Banco()
+
+# Exemplo de uso:
+banco.deposito(1000)
+banco.saque(500)
+banco.saque(300)
+banco.deposito(200)
+banco.extrato()
